@@ -9,5 +9,5 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @Api(tags = "首页管理")
-public class DashBoardController {
+public class DashBoardController extends BaseApiController {
 }

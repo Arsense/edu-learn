@@ -20,41 +20,41 @@ public class ExamPaper implements Serializable {
     private String name;
 
     /**
-     * 试卷名称
+     * 学科id
      */
     private Integer subjectId;
 
     /**
-     * 试卷名称
+     * 试卷类型( 1固定试卷  2临时试卷 3班级试卷 4.时段试卷 5.推送试卷)
      */
     private Integer paperType;
 
     /**
-     * 试卷名称
+     * 级别
      */
     private Integer gradeLevel;
     /**
-     * 试卷名称
+     * 试卷总分(千分制)
      */
     private Integer score;
     /**
-     * 试卷名称
+     * 建议时长(分钟)
      */
     private Integer questionCount;
     /**
-     * 试卷名称
+     *  建议时长(分钟)
      */
     private Integer suggestTime;
     /**
-     * 试卷名称
+     * 时段试卷 开始时间
      */
     private Date limitStartTime;
     /**
-     * 试卷名称
+     * 时段试卷 结束时间
      */
     private Date limitEndTime;
     /**
-     * 试卷名称
+     * 试卷框架 内容为JSON
      */
     private Integer frameTextContentId;
     /**
