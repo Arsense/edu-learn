@@ -14,7 +14,8 @@ edu-learn 仿在线教育系统
 
 - springboot 
 - 添加swagger2 作为接口测试平台
-
+- mybatis
+- pageHelper
 
 #三 业务功能分析
 3端
@@ -37,4 +38,5 @@ edu-learn 仿在线教育系统
 - 消息中心
 - 日志管理
 - 视频管理
+
 

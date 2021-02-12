@@ -1,6 +1,9 @@
 package edu.cl.learn.vo;
 
+import edu.cl.learn.domain.User;
+import edu.cl.learn.util.DateTimeUtil;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @Author: Clay
@@ -38,4 +41,14 @@ public class UserResponseVO {
     private Integer userLevel;
 
     private String imagePath;
+
+    public static UserResponseVO from(User user) {
+        UserResponseVO userResponseVO = new UserResponseVO();
+        BeanUtils.copyProperties(user, userResponseVO);
+        userResponseVO.setBirthDay(DateTimeUtil.dateFormat(user.getBirthDay()));
+        userResponseVO.setLastActiveTime(DateTimeUtil.dateFormat(user.getLastActiveTime()));
+        userResponseVO.setCreateTime(DateTimeUtil.dateFormat(user.getCreateTime()));
+        userResponseVO.setModifyTime(DateTimeUtil.dateFormat(user.getModifyTime()));
+        return userResponseVO;
+    }
 }
