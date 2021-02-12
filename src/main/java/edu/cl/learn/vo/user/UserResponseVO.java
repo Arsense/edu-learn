@@ -1,4 +1,4 @@
-package edu.cl.learn.vo;
+package edu.cl.learn.vo.user;
 
 import edu.cl.learn.domain.User;
 import edu.cl.learn.util.DateTimeUtil;

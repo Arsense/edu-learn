@@ -34,25 +34,25 @@ public class ExamPaperAnswerController extends BaseApiController {
     @Autowired
     private SubjectService subjectService;
 
-    @RequestMapping(value = "/page", method = RequestMethod.POST)
-    @ApiOperation("试卷批改查询")
-    public RestResponse<PageInfo<ExamPaperAnswerPageResponseVO>> pageJudgeList(@RequestBody ExamPaperAnswerPageRequestVO model) {
-        PageInfo<ExamPaperAnswer> pageInfo = examPaperAnswerService.adminPage(model);
-        PageInfo<ExamPaperAnswerPageResponseVO> page = PageInfoHelper.copyMap(pageInfo, e -> {
-            ExamPaperAnswerPageResponseVO vm = modelMapper.map(e, ExamPaperAnswerPageResponseVO.class);
-            Subject subject = subjectService.selectById(vm.getSubjectId());
-            vm.setDoTime(ExamUtil.secondToVM(e.getDoTime()));
-            vm.setSystemScore(ExamUtil.scoreToVM(e.getSystemScore()));
-            vm.setUserScore(ExamUtil.scoreToVM(e.getUserScore()));
-            vm.setPaperScore(ExamUtil.scoreToVM(e.getPaperScore()));
-            vm.setSubjectName(subject.getName());
-            vm.setCreateTime(DateTimeUtil.dateFormat(e.getCreateTime()));
-            User user = userService.selectById(e.getCreateUser());
-            vm.setUserName(user.getUserName());
-            return vm;
-        });
-        return RestResponse.success(page);
-    }
+//    @RequestMapping(value = "/page", method = RequestMethod.POST)
+//    @ApiOperation("试卷批改查询")
+//    public RestResponse<PageInfo<ExamPaperAnswerPageResponseVO>> pageJudgeList(@RequestBody ExamPaperAnswerPageRequestVO model) {
+//        PageInfo<ExamPaperAnswer> pageInfo = examPaperAnswerService.adminPage(model);
+//        PageInfo<ExamPaperAnswerPageResponseVO> page = PageInfoHelper.copyMap(pageInfo, e -> {
+//            ExamPaperAnswerPageResponseVO vm = modelMapper.map(e, ExamPaperAnswerPageResponseVO.class);
+//            Subject subject = subjectService.selectById(vm.getSubjectId());
+//            vm.setDoTime(ExamUtil.secondToVM(e.getDoTime()));
+//            vm.setSystemScore(ExamUtil.scoreToVM(e.getSystemScore()));
+//            vm.setUserScore(ExamUtil.scoreToVM(e.getUserScore()));
+//            vm.setPaperScore(ExamUtil.scoreToVM(e.getPaperScore()));
+//            vm.setSubjectName(subject.getName());
+//            vm.setCreateTime(DateTimeUtil.dateFormat(e.getCreateTime()));
+//            User user = userService.selectById(e.getCreateUser());
+//            vm.setUserName(user.getUserName());
+//            return vm;
+//        });
+//        return RestResponse.success(page);
+//    }
 
 
 

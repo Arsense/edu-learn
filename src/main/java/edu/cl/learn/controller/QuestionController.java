@@ -1,8 +1,18 @@
 package edu.cl.learn.controller;
 
 import com.github.pagehelper.PageInfo;
+import edu.cl.learn.base.RestResponse;
+import edu.cl.learn.base.SystemCode;
+import edu.cl.learn.domain.Question;
+import edu.cl.learn.service.QuestionService;
+import edu.cl.learn.util.DateTimeUtil;
+import edu.cl.learn.util.PageInfoHelper;
+import edu.cl.learn.vo.question.QuestionEditRequestVO;
+import edu.cl.learn.vo.question.QuestionPageRequestVO;
+import edu.cl.learn.vo.question.QuestionResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,28 +27,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class QuestionController extends BaseApiController {
 
 
+    @Autowired
+    private QuestionService questionService;
     @RequestMapping(value = "/page", method = RequestMethod.POST)
     @ApiOperation("分页查询题目")
-    public RestResponse<PageInfo<QuestionResponseVM>> pageList(@RequestBody QuestionPageRequestVM model) {
+    public RestResponse<PageInfo<QuestionResponseVO>> pageList(@RequestBody QuestionPageRequestVO model) {
         PageInfo<Question> pageInfo = questionService.page(model);
-        PageInfo<QuestionResponseVM> page = PageInfoHelper.copyMap(pageInfo, q -> {
-            QuestionResponseVM vm = modelMapper.map(q, QuestionResponseVM.class);
-            vm.setCreateTime(DateTimeUtil.dateFormat(q.getCreateTime()));
-            vm.setScore(ExamUtil.scoreToVM(q.getScore()));
-            TextContent textContent = textContentService.selectById(q.getInfoTextContentId());
-            QuestionObject questionObject = JsonUtil.toJsonObject(textContent.getContent(), QuestionObject.class);
-            String clearHtml = HtmlUtil.clear(questionObject.getTitleContent());
-            vm.setShortTitle(clearHtml);
+        PageInfo<QuestionResponseVO> page = PageInfoHelper.copyMap(pageInfo, q -> {
+            QuestionResponseVO vm = modelMapper.map(q, QuestionResponseVO.class);
+//            vm.setCreateTime(DateTimeUtil.dateFormat(q.getCreateTime()));
+//            vm.setScore(ExamUtil.scoreToVM(q.getScore()));
+//            TextContent textContent = textContentService.selectById(q.getInfoTextContentId());
+//            QuestionObject questionObject = JsonUtil.toJsonObject(textContent.getContent(), QuestionObject.class);
+//            String clearHtml = HtmlUtil.clear(questionObject.getTitleContent());
+//            vm.setShortTitle(clearHtml);
             return vm;
         });
-        return RestResponse.ok(page);
+        return RestResponse.success(page);
     }
 
     @RequestMapping(value = "/select/{id}", method = RequestMethod.POST)
     @ApiOperation("根据id查询题目")
-    public RestResponse<QuestionEditRequestVM> select(@PathVariable Integer id) {
-        QuestionEditRequestVM newVM = questionService.getQuestionEditRequestVM(id);
-        return RestResponse.ok(newVM);
+    public RestResponse<QuestionEditRequestVO> select(@PathVariable Integer id) {
+        QuestionEditRequestVO newVM = questionService.getQuestionEditRequestVO(id);
+        return RestResponse.success(newVM);
     }
 
 
@@ -48,15 +60,15 @@ public class QuestionController extends BaseApiController {
         Question question = questionService.selectById(id);
         question.setDeleted(true);
         questionService.updateByIdFilter(question);
-        return RestResponse.ok();
+        return RestResponse.success();
     }
 
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ApiOperation("编辑插入题目")
-    public RestResponse edit(@RequestBody @Valid QuestionEditRequestVM model) {
-        RestResponse validQuestionEditRequestResult = validQuestionEditRequestVM(model);
-        if (validQuestionEditRequestResult.getCode() != SystemCode.OK.getCode()) {
+    public RestResponse edit(@RequestBody  QuestionEditRequestVO model) {
+        RestResponse validQuestionEditRequestResult = validQuestionEditRequestVO(model);
+        if (validQuestionEditRequestResult.getCode() != SystemCode.SUCCESS.getCode()) {
             return validQuestionEditRequestResult;
         }
 
@@ -66,6 +78,10 @@ public class QuestionController extends BaseApiController {
             questionService.updateFullQuestion(model);
         }
 
-        return RestResponse.ok();
+        return RestResponse.success();
+    }
+
+    private RestResponse validQuestionEditRequestVO(QuestionEditRequestVO model) {
+            return null;
     }
 }

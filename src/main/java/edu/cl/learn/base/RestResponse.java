@@ -20,7 +20,10 @@ public class RestResponse<T> {
         this.response = response;
     }
 
-
+    public static RestResponse success() {
+        SystemCode systemCode = SystemCode.OK;
+        return new RestResponse<>(systemCode.getCode(), systemCode.getMessage());
+    }
     public static <F> RestResponse<F> success(F response) {
         SystemCode systemCode = SystemCode.OK;
         return new RestResponse<>(systemCode.getCode(), systemCode.getMessage(), response);

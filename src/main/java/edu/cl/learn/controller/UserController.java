@@ -2,17 +2,24 @@ package edu.cl.learn.controller;
 
 import com.github.pagehelper.PageInfo;
 import edu.cl.learn.base.RestResponse;
+import edu.cl.learn.domain.KeyValue;
 import edu.cl.learn.domain.User;
+import edu.cl.learn.domain.UserEventLog;
+import edu.cl.learn.service.UserEventLogService;
 import edu.cl.learn.service.UserService;
+import edu.cl.learn.util.DateTimeUtil;
 import edu.cl.learn.util.PageInfoHelper;
-import edu.cl.learn.vo.UserPageRequestVO;
-import edu.cl.learn.vo.UserResponseVO;
-import edu.cl.learn.vo.UserUpdateVO;
+import edu.cl.learn.vo.log.UserEventLogVO;
+import edu.cl.learn.vo.log.UserEventPageRequestVO;
+import edu.cl.learn.vo.user.UserPageRequestVO;
+import edu.cl.learn.vo.user.UserResponseVO;
+import edu.cl.learn.vo.user.UserUpdateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: Clay
@@ -25,6 +32,9 @@ public class UserController extends BaseApiController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserEventLogService userEventLogService;
 
 
     @PostMapping("/page/list")
@@ -51,7 +61,7 @@ public class UserController extends BaseApiController {
         modelMapper.map(model, user);
         user.setModifyTime(new Date());
         userService.updateByIdFilter(user);
-        return RestResponse.success();
+        return RestResponse.success(user);
     }
 
 
@@ -77,10 +87,10 @@ public class UserController extends BaseApiController {
 
     @RequestMapping(value = "/event/page/list", method = RequestMethod.POST)
     @ApiOperation("用户操作日志查询")
-    public RestResponse<PageInfo<UserEventLogVM>> eventPageList(@RequestBody UserEventPageRequestVM model) {
+    public RestResponse<PageInfo<UserEventLogVO>> eventPageList(@RequestBody UserEventPageRequestVO model) {
         PageInfo<UserEventLog> pageInfo = userEventLogService.page(model);
-        PageInfo<UserEventLogVM> page = PageInfoHelper.copyMap(pageInfo, d -> {
-            UserEventLogVM vm = modelMapper.map(d, UserEventLogVM.class);
+        PageInfo<UserEventLogVO> page = PageInfoHelper.copyMap(pageInfo, d -> {
+            UserEventLogVO vm = modelMapper.map(d, UserEventLogVO.class);
             vm.setCreateTime(DateTimeUtil.dateFormat(d.getCreateTime()));
             return vm;
         });

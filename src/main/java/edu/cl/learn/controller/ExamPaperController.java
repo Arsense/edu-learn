@@ -33,33 +33,33 @@ public class ExamPaperController extends BaseApiController {
         PageInfo<ExamPaper> pageInfo = examPaperService.page(model);
         PageInfo<ExamResponseVO> page = PageInfoHelper.copyMap(pageInfo, e -> {
             ExamResponseVO vm = modelMapper.map(e, ExamResponseVO.class);
-            vm.setCreateTime(DateTimeUtil.dateFormat(e.getCreateTime()));
+//            vm.setCreateTime(DateTimeUtil.dateFormat(e.getCreateTime()));
             return vm;
         });
-        return RestResponse.ok(page);
+        return RestResponse.success(page);
     }
 
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    @ApiOperation("根据用户名查询")
-    public RestResponse<ExamPaperEditRequestVO> edit(@RequestBody  ExamPaperEditRequestVO model) {
-        ExamPaper examPaper = examPaperService.savePaperFrom(model, getCurrentUser());
-        ExamPaperEditRequestVO newVM = examPaperService.examPaper(examPaper.getId());
-        return RestResponse.success(newVM);
-    }
-
-    @RequestMapping(value = "/select/{id}", method = RequestMethod.POST)
-    public RestResponse<ExamPaperEditRequestVO> select(@PathVariable Integer id) {
-        ExamPaperEditRequestVO vm = examPaperService.examPaperTo(id);
-        return RestResponse.success(vm);
-    }
-
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public RestResponse delete(@PathVariable Integer id) {
-        ExamPaper examPaper = examPaperService.selectById(id);
-        examPaper.setDeleted(true);
-        examPaperService.updateByIdFilter(examPaper);
-        return RestResponse.success(examPaper);
-    }
+//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+//    @ApiOperation("根据用户名查询")
+//    public RestResponse<ExamPaperEditRequestVO> edit(@RequestBody  ExamPaperEditRequestVO model) {
+//        ExamPaper examPaper = examPaperService.savePaperFrom(model, getCurrentUser());
+//        ExamPaperEditRequestVO newVM = examPaperService.examPaper(examPaper.getId());
+//        return RestResponse.success(newVM);
+//    }
+//
+//    @RequestMapping(value = "/select/{id}", method = RequestMethod.POST)
+//    public RestResponse<ExamPaperEditRequestVO> select(@PathVariable Integer id) {
+//        ExamPaperEditRequestVO vm = examPaperService.examPaperTo(id);
+//        return RestResponse.success(vm);
+//    }
+//
+//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+//    public RestResponse delete(@PathVariable Integer id) {
+//        ExamPaper examPaper = examPaperService.selectById(id);
+//        examPaper.setDeleted(true);
+//        examPaperService.updateByIdFilter(examPaper);
+//        return RestResponse.success(examPaper);
+//    }
 
 }

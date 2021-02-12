@@ -1,4 +1,4 @@
-package edu.cl.learn.vo;
+package edu.cl.learn.vo.user;
 
 import edu.cl.learn.base.BasePage;
 import lombok.Data;

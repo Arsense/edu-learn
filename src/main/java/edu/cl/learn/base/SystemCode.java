@@ -8,7 +8,7 @@ public enum SystemCode {
     /**
      * OK
      */
-    OK(1, "成功"),
+    SUCCESS(1, "成功"),
     /**
      * AccessTokenError
      */
