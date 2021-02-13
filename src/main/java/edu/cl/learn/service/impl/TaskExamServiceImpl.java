@@ -2,6 +2,7 @@ package edu.cl.learn.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import edu.cl.learn.domain.TaskExam;
+import edu.cl.learn.domain.User;
 import edu.cl.learn.service.TaskExamService;
 import edu.cl.learn.vo.task.TaskPageRequestVO;
 import edu.cl.learn.vo.task.TaskRequestVO;
@@ -31,5 +32,10 @@ public class TaskExamServiceImpl implements TaskExamService {
     @Override
     public PageInfo<TaskExam> page(TaskPageRequestVO model) {
         return null;
+    }
+
+    @Override
+    public void edit(TaskRequestVO model, User currentUser) {
+
     }
 }

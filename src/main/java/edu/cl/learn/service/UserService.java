@@ -14,6 +14,7 @@ import java.util.List;
 public interface UserService {
     PageInfo<User> userPage(UserPageRequestVO model);
 
+
     User getUserById(Integer id);
 
     void updateByIdFilter(User user);

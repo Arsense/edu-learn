@@ -25,44 +25,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Api("任务管理")
 public class TaskController extends BaseApiController {
 
-    private final TaskExamService taskExamService;
-
-    @Autowired
-    public TaskController(TaskExamService taskExamService) {
-        this.taskExamService = taskExamService;
-    }
-
-    @RequestMapping(value = "/page", method = RequestMethod.POST)
-    public RestResponse<PageInfo<TaskPageResponseVO>> pageList(@RequestBody TaskPageRequestVO model) {
-        PageInfo<TaskExam> pageInfo = taskExamService.page(model);
-        PageInfo<TaskPageResponseVO> page = PageInfoHelper.copyMap(pageInfo, m -> {
-            TaskPageResponseVO vm = modelMapper.map(m, TaskPageResponseVO.class);
-            vm.setCreateTime(DateTimeUtil.dateFormat(m.getCreateTime()));
-            return vm;
-        });
-        return RestResponse.success(page);
-    }
-
-
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public RestResponse edit(@RequestBody TaskRequestVO model) {
-        taskExamService.edit(model, getCurrentUser());
-        TaskRequestVO vm = taskExamService.taskExamToVM(model.getId());
-        return RestResponse.success(vm);
-    }
-
-
-    @RequestMapping(value = "/select/{id}", method = RequestMethod.POST)
-    public RestResponse<TaskRequestVO> select(@PathVariable Integer id) {
-        TaskRequestVO vm = taskExamService.taskExamToVM(id);
-        return RestResponse.success(vm);
-    }
-
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public RestResponse delete(@PathVariable Integer id) {
-        TaskExam taskExam = taskExamService.selectById(id);
-        taskExam.setDeleted(true);
-        taskExamService.updateByIdFilter(taskExam);
-        return RestResponse.success();
-    }
+//    private final TaskExamService taskExamService;
+//
+//    @Autowired
+//    public TaskController(TaskExamService taskExamService) {
+//        this.taskExamService = taskExamService;
+//    }
+//
+//    @RequestMapping(value = "/page", method = RequestMethod.POST)
+//    public RestResponse<PageInfo<TaskPageResponseVO>> pageList(@RequestBody TaskPageRequestVO model) {
+//        PageInfo<TaskExam> pageInfo = taskExamService.page(model);
+//        PageInfo<TaskPageResponseVO> page = PageInfoHelper.copyMap(pageInfo, m -> {
+//            TaskPageResponseVO taskPageResponseVO = modelMapper.map(m, TaskPageResponseVO.class);
+//            taskPageResponseVO.setCreateTime(DateTimeUtil.dateFormat(m.getCreateTime()));
+//            return taskPageResponseVO;
+//        });
+//        return RestResponse.success(page);
+//    }
+//
+//
+//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+//    public RestResponse edit(@RequestBody TaskRequestVO model) {
+//        taskExamService.edit(model, getCurrentUser());
+//        TaskRequestVO vm = taskExamService.taskExamToVM(model.getId());
+//        return RestResponse.success(vm);
+//    }
+//
+//
+//    @RequestMapping(value = "/select/{id}", method = RequestMethod.POST)
+//    public RestResponse<TaskRequestVO> select(@PathVariable Integer id) {
+//        TaskRequestVO vm = taskExamService.taskExamToVM(id);
+//        return RestResponse.success(vm);
+//    }
+//
+//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+//    public RestResponse delete(@PathVariable Integer id) {
+//        TaskExam taskExam = taskExamService.selectById(id);
+//        taskExam.setDeleted(true);
+//        taskExamService.updateByIdFilter(taskExam);
+//        return RestResponse.success();
+//    }
 }

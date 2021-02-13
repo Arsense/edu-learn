@@ -1,6 +1,5 @@
 package edu.cl.learn.vo.subject;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
 
 /**
@@ -16,7 +15,6 @@ public class SubjectEditRequestVO {
 
     private String name;
 
-    @NotNull
     private Integer level;
 
     private String levelName;

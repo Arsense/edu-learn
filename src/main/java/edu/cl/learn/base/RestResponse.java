@@ -21,11 +21,11 @@ public class RestResponse<T> {
     }
 
     public static RestResponse success() {
-        SystemCode systemCode = SystemCode.OK;
+        SystemCode systemCode = SystemCode.SUCCESS;
         return new RestResponse<>(systemCode.getCode(), systemCode.getMessage());
     }
     public static <F> RestResponse<F> success(F response) {
-        SystemCode systemCode = SystemCode.OK;
+        SystemCode systemCode = SystemCode.SUCCESS;
         return new RestResponse<>(systemCode.getCode(), systemCode.getMessage(), response);
     }
 

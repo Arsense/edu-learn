@@ -17,6 +17,6 @@ spring:
 #mybatis配置
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
-  configuration:
-    log-prefix: repository.
+#  configuration:
+#    log-prefix: repository.
 

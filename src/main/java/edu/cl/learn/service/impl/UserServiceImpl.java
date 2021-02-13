@@ -1,10 +1,12 @@
 package edu.cl.learn.service.impl;
 
 import com.github.pagehelper.PageInfo;
+import edu.cl.learn.dao.UserMapper;
 import edu.cl.learn.domain.KeyValue;
 import edu.cl.learn.domain.User;
 import edu.cl.learn.service.UserService;
 import edu.cl.learn.vo.user.UserPageRequestVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public PageInfo<User> userPage(UserPageRequestVO model) {
         return null;
@@ -24,21 +29,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Integer id) {
-        return null;
+        return userMapper.getUserById(id);
     }
 
     @Override
     public void updateByIdFilter(User user) {
-
+        userMapper.updateUser(user);
     }
 
     @Override
     public User selectById(Integer id) {
-        return null;
+        return userMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<KeyValue> selectByUserName(String userName) {
-        return null;
+        return userMapper.selectByUserName(userName);
     }
 }

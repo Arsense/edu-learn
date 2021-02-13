@@ -12,5 +12,5 @@ import java.util.Date;
 public class TaskPageResponseVO {
 
 
-    private Date createTime;
+    private String createTime;
 }

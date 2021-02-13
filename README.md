@@ -16,6 +16,7 @@ edu-learn 仿在线教育系统
 - 添加swagger2 作为接口测试平台
 - mybatis
 - pageHelper
+- junit
 
 #三 业务功能分析
 3端
