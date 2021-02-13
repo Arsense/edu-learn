@@ -33,5 +33,5 @@ public interface ExamPaperQuestionCustomerAnswerMapper {
 
     List<KeyValue> selectCountByDate(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
-    int updateScore(List<ExamPaperAnswerUpdate> examPaperAnswerUpdates);
+//    int updateScore(List<ExamPaperAnswerUpdate> examPaperAnswerUpdates);
 }

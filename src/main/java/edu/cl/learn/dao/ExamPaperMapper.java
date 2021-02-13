@@ -27,13 +27,13 @@ public interface ExamPaperMapper  {
 
     List<ExamPaper> taskExamPage(ExamPaperPageRequestVO requestVM);
 
-    List<ExamPaper> studentPage(ExamPaperPageVO requestVM);
+//    List<ExamPaper> studentPage(ExamPaperPageVO requestVM);
 
-    List<PaperInfo> indexPaper(PaperFilter paperFilter);
+//    List<PaperInfo> indexPaper(PaperFilter paperFilter);
 
     Integer selectAllCount();
 
-    List<KeyValue> selectCountByDate(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
+//    List<KeyValue> selectCountByDate(@Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     int updateTaskPaper(@Param("taskId") Integer taskId,@Param("paperIds") List<Integer> paperIds);
 
