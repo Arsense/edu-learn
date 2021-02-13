@@ -1,9 +1,8 @@
 package edu.cl.learn.dao;
 
-import com.mindskip.xzs.domain.ExamPaperQuestionCustomerAnswer;
-import com.mindskip.xzs.domain.other.ExamPaperAnswerUpdate;
-import com.mindskip.xzs.domain.other.KeyValue;
-import com.mindskip.xzs.viewmodel.student.question.answer.QuestionPageStudentRequestVM;
+import edu.cl.learn.domain.ExamPaperQuestionCustomerAnswer;
+import edu.cl.learn.domain.KeyValue;
+import edu.cl.learn.vo.question.QuestionPageStudentRequestVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Mapper
-public interface ExamPaperQuestionCustomerAnswerMapper extends BaseMapper<ExamPaperQuestionCustomerAnswer> {
+public interface ExamPaperQuestionCustomerAnswerMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(ExamPaperQuestionCustomerAnswer record);
@@ -26,7 +25,7 @@ public interface ExamPaperQuestionCustomerAnswerMapper extends BaseMapper<ExamPa
 
     List<ExamPaperQuestionCustomerAnswer> selectListByPaperAnswerId(Integer id);
 
-    List<ExamPaperQuestionCustomerAnswer> studentPage(QuestionPageStudentRequestVM requestVM);
+    List<ExamPaperQuestionCustomerAnswer> studentPage(QuestionPageStudentRequestVO requestVM);
 
     int insertList(List<ExamPaperQuestionCustomerAnswer> list);
 

@@ -1,11 +1,8 @@
 package edu.cl.learn.dao;
 
-import com.mindskip.xzs.domain.ExamPaper;
-import com.mindskip.xzs.domain.other.KeyValue;
-import com.mindskip.xzs.viewmodel.admin.exam.ExamPaperPageRequestVM;
-import com.mindskip.xzs.viewmodel.student.dashboard.PaperFilter;
-import com.mindskip.xzs.viewmodel.student.dashboard.PaperInfo;
-import com.mindskip.xzs.viewmodel.student.exam.ExamPaperPageVM;
+import edu.cl.learn.domain.ExamPaper;
+import edu.cl.learn.domain.KeyValue;
+import edu.cl.learn.vo.exam.ExamPaperPageRequestVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Mapper
-public interface ExamPaperMapper extends BaseMapper<ExamPaper> {
+public interface ExamPaperMapper  {
     int deleteByPrimaryKey(Integer id);
 
     int insert(ExamPaper record);
@@ -26,11 +23,11 @@ public interface ExamPaperMapper extends BaseMapper<ExamPaper> {
 
     int updateByPrimaryKey(ExamPaper record);
 
-    List<ExamPaper> page(ExamPaperPageRequestVM requestVM);
+    List<ExamPaper> page(ExamPaperPageRequestVO requestVM);
 
-    List<ExamPaper> taskExamPage(ExamPaperPageRequestVM requestVM);
+    List<ExamPaper> taskExamPage(ExamPaperPageRequestVO requestVM);
 
-    List<ExamPaper> studentPage(ExamPaperPageVM requestVM);
+    List<ExamPaper> studentPage(ExamPaperPageVO requestVM);
 
     List<PaperInfo> indexPaper(PaperFilter paperFilter);
 
