@@ -1,5 +1,6 @@
 package edu.cl.learn.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.cl.learn.dao.UserMapper;
 import edu.cl.learn.domain.KeyValue;
@@ -23,8 +24,9 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public PageInfo<User> userPage(UserPageRequestVO model) {
-        return null;
+    public PageInfo<User> userPage(UserPageRequestVO requestVO) {
+        return PageHelper.startPage(requestVO.getPageIndex(), requestVO.getPageSize(), "id desc")
+                         .doSelectPageInfo(() -> userMapper.userPage(requestVO));
     }
 
     @Override
@@ -45,5 +47,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<KeyValue> selectByUserName(String userName) {
         return userMapper.selectByUserName(userName);
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        return userMapper.getUserByUserName(userName);
+    }
+
+    @Override
+    public void insertByFilter(User user) {
+         userMapper.insertSelective(user);
     }
 }

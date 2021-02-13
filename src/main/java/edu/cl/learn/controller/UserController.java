@@ -5,12 +5,14 @@ import edu.cl.learn.base.RestResponse;
 import edu.cl.learn.domain.KeyValue;
 import edu.cl.learn.domain.User;
 import edu.cl.learn.domain.UserEventLog;
+import edu.cl.learn.service.AuthenticationService;
 import edu.cl.learn.service.UserEventLogService;
 import edu.cl.learn.service.UserService;
 import edu.cl.learn.util.DateTimeUtil;
 import edu.cl.learn.util.PageInfoHelper;
 import edu.cl.learn.vo.log.UserEventLogVO;
 import edu.cl.learn.vo.log.UserEventPageRequestVO;
+import edu.cl.learn.vo.user.UserCreateVO;
 import edu.cl.learn.vo.user.UserPageRequestVO;
 import edu.cl.learn.vo.user.UserResponseVO;
 import edu.cl.learn.vo.user.UserUpdateVO;
@@ -20,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Author: Clay
@@ -35,14 +40,61 @@ public class UserController extends BaseApiController {
 
     @Autowired
     private UserEventLogService userEventLogService;
+    @Autowired
+    private  AuthenticationService authenticationService;
 
 
     @PostMapping("/page/list")
     @ApiOperation("用户信息分页查询")
     public RestResponse<PageInfo<UserResponseVO>> pageList(@RequestBody UserPageRequestVO model) {
         PageInfo<User> pageInfo = userService.userPage(model);
-        PageInfo<UserResponseVO> page = PageInfoHelper.copyMap(pageInfo, data -> UserResponseVO.from(data));
-        return RestResponse.success(page);
+        System.out.println("执行一次");
+        if (pageInfo != null) {
+            PageInfo<UserResponseVO> page = PageInfoHelper.copyMap(pageInfo, data -> UserResponseVO.from(data));
+            return RestResponse.success(page);
+        }
+
+        return RestResponse.success();
+
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ApiOperation("")
+    public RestResponse<User> edit(@RequestBody  UserCreateVO model) {
+        if (model.getId() == null) {
+            //create
+            User existUser = userService.getUserByUserName(model.getUserName());
+            if (null != existUser) {
+                return new RestResponse<>(2, "用户已存在");
+            }
+
+            if (StringUtils.isBlank(model.getPassword())) {
+                return new RestResponse<>(3, "密码不能为空");
+            }
+        }
+
+        User user = modelMapper.map(model, User.class);
+
+        if (model.getId() == null) {
+            String encodePwd = authenticationService.encode(model.getPassword());
+            user.setPassword(encodePwd);
+            user.setUserUuid(UUID.randomUUID().toString());
+            user.setCreateTime(new Date());
+            user.setLastActiveTime(new Date());
+            user.setDeleted(false);
+            userService.insertByFilter(user);
+        } else {
+            if (!StringUtils.isBlank(model.getPassword())) {
+                String encodePwd = authenticationService.encode(model.getPassword());
+                user.setPassword(encodePwd);
+            }
+            user.setModifyTime(new Date());
+            userService.updateByIdFilter(user);
+        }
+        return RestResponse.success(user);
+
+
+
     }
 
 

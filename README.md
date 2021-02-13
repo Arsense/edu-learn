@@ -39,5 +39,12 @@ edu-learn 仿在线教育系统
 - 消息中心
 - 日志管理
 - 视频管理
+# 表
 
+t_subject表记录学科
+exam相关三张白哦 
+exam试卷表 记录试卷的记录
+exam_answer表 试卷答题的批改记录表
+exam_xxxq_ss 就是用户答题记录表
 
+question表试卷表

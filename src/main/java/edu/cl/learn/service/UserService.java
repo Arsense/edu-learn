@@ -22,4 +22,8 @@ public interface UserService {
     User selectById(Integer id);
 
     List<KeyValue> selectByUserName(String userName);
+
+    User getUserByUserName(String userName);
+
+    void insertByFilter(User user);
 }

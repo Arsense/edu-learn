@@ -18,4 +18,6 @@ public interface SubjectService {
     void insertByFilter(Subject subject);
 
     void updateByIdFilter(Subject subject);
+
+    Subject selectById(Integer id);
 }

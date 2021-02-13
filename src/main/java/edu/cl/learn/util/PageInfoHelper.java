@@ -10,6 +10,14 @@ import java.util.stream.Collectors;
  * @Date: 2021/2/12 2:01 上午
  */
 public class PageInfoHelper {
+    /**
+     * TODO 这里都全转换有用吗?有必要吗？
+     * @param source
+     * @param mapper
+     * @param <T>
+     * @param <J>
+     * @return
+     */
     public static <T, J> PageInfo<J> copyMap(PageInfo<T> source, Function<? super T, ? extends J> mapper) {
         PageInfo<J> newPage = new PageInfo<>();
         newPage.setPageNum(source.getPageNum());

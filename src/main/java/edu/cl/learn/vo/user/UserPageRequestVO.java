@@ -10,7 +10,13 @@ import lombok.Data;
 @Data
 public class UserPageRequestVO extends BasePage {
 
+    /**
+     * 名称
+     */
     private String userName;
+    /**
+     * 角色
+     */
     private Integer role;
 
 }
